@@ -270,7 +270,6 @@ function submitForm() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            resetForm();
             setTimer();
             currentProgress = 0;
             totalUnits = parseInt(document.getElementById("numResponses").value, 10) * 3;
@@ -282,7 +281,7 @@ function submitForm() {
             setTimeout(() => {
                 alert("Task queued successfully! You will see a progressbar below. You CAN CLOSE OUT of this site. ETR: " + (parseInt(document.getElementById("numResponses").value, 10) / 4) * 15 + " seconds.");
             }, 1000);
-
+            resetForm();
         },
         error: function (error) {
             enableFormInputs();
