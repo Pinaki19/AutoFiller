@@ -114,9 +114,9 @@ function showOptions() {
             <textarea type="text" class="form-control" id="userEmail" placeholder="If you would like to provide some emails but not all, then the rest of them will be auto-generated. Name no 1 will be used with Email no 1 and so on." class="text-muted"></textarea>
         </div>
 
-    <div  style="display:flex;flex-direction:row; align-items:center; align-self:center;position:relative;top:20px;">
-          <button type="submit" class="btn btn-primary " style="position:relative;right:10px;" onclick="submitForm()">Submit</button>
-        <button type="button" class="btn btn-primary" style="position:relative;left:30px;" onclick="showFormPreview()">Check Form</button>
+     <div  style="display:flex;flex-direction:row; align-items:center; align-self:center;position:relative;top:20px;">
+          <button type="submit" class="btn btn-primary " style="position:relative;left:400px;" onclick="submitForm()">Submit</button>
+        <button type="button" class="btn btn-primary" style="position:relative;left:150px;" onclick="showFormPreview()">Check Form</button>
     </div>
           `;
 
