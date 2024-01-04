@@ -79,8 +79,8 @@ const main = async (res, form, data, N) => {
         const EMAILS = (emails === 'DEFAULT' || emails === 'DEFUALT') ? [] : emails.split(',').map(email => email.trim()).slice(0, N);
 
         const browser = await puppeteer.launch({
-            executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-            headless: false,
+            executablePath: "/opt/render/project/.render/chrome/opt/google/chrome/chrome",
+            args: ['--no-sandbox', '--disable-dev-shm-usage', '--headless'],
         });
         const page = await browser.newPage();
         for (let i = 0; i < N; i++) {
