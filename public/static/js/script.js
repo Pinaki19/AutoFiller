@@ -58,6 +58,7 @@ function fetchForm() {
 
 }
 
+
 // Function to extract the Google Form ID from the link
 function extractFormId(formLink) {
     // Match both formats: /forms/d/e/ and /forms/gle/
@@ -69,6 +70,28 @@ function extractFormId(formLink) {
     return formLink;
 }
 
+
+function fillEmails() {
+
+    var emailInputs = document.querySelectorAll('input[type="email"]');
+    emailInputs.forEach(function (emailInput) {
+        // Check if the input element is found
+        if (emailInput) {
+            // Set the value of the input
+            emailInput.value = "example@EXxample.com";
+
+            // Create and dispatch an input event
+            var inputEvent = new InputEvent('input', {
+                bubbles: true,
+                cancelable: true,
+            });
+
+            emailInput.dispatchEvent(inputEvent);
+        } else {
+            console.error("Email input not found");
+        }
+    });
+}
 
 function showOptions() {
     document.getElementById("fetchOptions").style.display = "block";
@@ -114,7 +137,7 @@ function showOptions() {
             <textarea type="text" class="form-control" id="userEmail" placeholder="If you would like to provide some emails but not all, then the rest of them will be auto-generated. Name no 1 will be used with Email no 1 and so on." class="text-muted"></textarea>
         </div>
 
-     <div  style="display:flex;flex-direction:row; align-items:center; align-self:center;position:relative;top:20px;">
+    <div  style="display:flex;flex-direction:row; align-items:center; align-self:center;position:relative;top:20px;">
           <button type="submit" class="btn btn-primary " style="position:relative;left:400px;" onclick="submitForm()">Submit</button>
         <button type="button" class="btn btn-primary" style="position:relative;left:150px;" onclick="showFormPreview()">Check Form</button>
     </div>
@@ -129,11 +152,14 @@ function showFormPreview() {
 function updateOptions() {
     // Get user choice
     var userChoice = document.getElementById("menuChoice").value;
+
     // Reset form to initial state
     resetForm();
+
     // Show sections based on user choice
     showSections(userChoice);
 }
+
 
 function checkInput() {
     var inputElement = document.getElementById("numResponses");
@@ -193,6 +219,8 @@ function resetForm() {
     } catch (error) { }
 }
 
+let currentProgress = 0;
+let totalUnits = 100;
 
 function submitForm() {
     // Extracting data from the form
@@ -237,7 +265,7 @@ function submitForm() {
     }
 
     disableFormInputs();
-    //showProgressMessage();
+
 
     $.ajax({
         type: "POST",
@@ -246,16 +274,32 @@ function submitForm() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            console.log("ok");
             resetForm();
             setTimer();
+            currentProgress = 0;
+            totalUnits = parseInt(document.getElementById("numResponses").value, 10) * 3;
+            updateProgressBar(currentProgress);
+            showProgressBar();
+            const progressInterval = setInterval(function () {
+                simulateProgress();
+            }, 5000);
+            setTimeout(() => {
+                alert("Task queued successfully! You will see a progressbar below. You CAN CLOSE OUT of this site. ETR: " + (parseInt(document.getElementById("numResponses").value, 10) / 4) * 15 + " seconds.");
+            }, 1000);
+
         },
         error: function (error) {
-            console.error("NO");
             enableFormInputs();
             //hideProgressMessage();
         }
     });
+}
+
+function showProgressBar() {
+    var progressBar = document.getElementById("custom-progress");
+    if (progressBar) {
+        progressBar.style.display = "block";
+    }
 }
 
 
@@ -330,3 +374,52 @@ function enableFormInputs() {
     var userChoice = document.getElementById("menuChoice").value;
     showSections(userChoice);
 }
+
+function updateProgressBar(progressValue) {
+    var progressBar = document.getElementById("custom-progress-bar");
+
+    if (!isNaN(progressValue) && progressValue >= 0 && progressValue <= 100) {
+        progressBar.style.width = progressValue + "%";
+
+        if (progressValue <= 5) {
+            progressBar.style.backgroundColor = "#f63a0f";
+        } else if (progressValue <= 25) {
+            progressBar.style.backgroundColor = "#f27011";
+        } else if (progressValue <= 50) {
+            progressBar.style.backgroundColor = "#f2b01e";
+        } else if (progressValue <= 75) {
+            progressBar.style.backgroundColor = "#ccf56e";
+        } else if (progressValue <= 99) {
+            progressBar.style.backgroundColor = "#86e01e";
+        } else {
+            progressBar.style.backgroundColor = "#17ff64";
+        }
+
+        // Create or update progress label
+        var progressLabel = document.getElementById("progress-label");
+        if (!progressLabel) {
+            progressLabel = document.createElement("div");
+            progressLabel.id = "progress-label";
+            progressBar.appendChild(progressLabel);
+        }
+        progressLabel.textContent = progressValue + "%";
+    }
+}
+
+// Function to set the progress text
+function setProgressText(progress) {
+    const progressText = document.getElementById('progress-text');
+    progressText.innerHTML = progress + '%';
+}
+
+// Function to simulate progress completion
+function simulateProgress(n) {
+    if (currentProgress < totalUnits) {
+        currentProgress += 1;
+        updateProgressBar(Math.floor((currentProgress / totalUnits) * 100));
+    } else {
+        clearInterval(progressInterval);
+        console.log('Progress completed!');
+    }
+}
+
