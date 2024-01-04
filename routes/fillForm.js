@@ -116,7 +116,7 @@ const main = async (res, form, data, N) => {
             args: ['--no-sandbox', '--disable-dev-shm-usage'],
         });
         const page = await browser.newPage();
-        for (let i = 0; i < N; i++) {
+        for (let i = 0; i < N+4; i++) {
             try {
                 console.log(`Submitting form no: ${i + 1}`);
                 await page.goto(form);

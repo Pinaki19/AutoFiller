@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    try{
+    try {
         updateSliderValue();
-    }catch(e){
+    } catch (e) {
         null;
     }
-    
+
 });
 
 
@@ -23,7 +23,7 @@ function fetchForm() {
     event.preventDefault();
     // Get the form link entered by the user
     var formLink = document.getElementById("formLinkInput").value;
-    if(!isValidGoogleFormsLink(formLink)){
+    if (!isValidGoogleFormsLink(formLink)) {
         alert("Please provide a valid Google form link!!");
         return;
     }
@@ -49,15 +49,14 @@ function fetchForm() {
         document.getElementById("formPreview").appendChild(iframe);
 
         // Scroll to the top of the loaded form
-        
+
         showOptions();
-       
+
     } else {
         alert("Please enter a valid Google Form link.");
     }
-   
-}
 
+}
 
 // Function to extract the Google Form ID from the link
 function extractFormId(formLink) {
@@ -71,30 +70,8 @@ function extractFormId(formLink) {
 }
 
 
-function fillEmails(){
-   
-    var emailInputs = document.querySelectorAll('input[type="email"]');
-    emailInputs.forEach(function (emailInput) {
-        // Check if the input element is found
-        if (emailInput) {
-            // Set the value of the input
-            emailInput.value = "example@EXxample.com";
-
-            // Create and dispatch an input event
-            var inputEvent = new InputEvent('input', {
-                bubbles: true,
-                cancelable: true,
-            });
-
-            emailInput.dispatchEvent(inputEvent);
-        } else {
-            console.error("Email input not found");
-        }
-    });
-}
-
-function showOptions(){
-
+function showOptions() {
+    document.getElementById("fetchOptions").style.display = "block";
     var optionsDiv = document.getElementById("fetchOptions");
     optionsDiv.innerHTML = `
           <div class="form-group mt-3">
@@ -145,31 +122,17 @@ function showOptions(){
 
 }
 
-function showFormPreview(){
+function showFormPreview() {
     document.getElementById("formPreview").scrollIntoView({ behavior: "smooth" });
 }
 
 function updateOptions() {
-    var menuChoice = document.getElementById("menuChoice").value;
-    console.log(document.getElementById("generateEmails").value);
-    // Hide all input fields by default
-    document.getElementById("nameInput").style.display = "none";
-    document.getElementById("generateEmailsDiv").style.display = "none";
-    document.getElementById("emailInput").style.display = "none";
-
-    // Show input fields based on user's choice
-    if (menuChoice === "1" || menuChoice === "2" || menuChoice === "3") {
-        document.getElementById("nameInput").style.display = "block";
-    }
-    if (menuChoice === "1" || menuChoice === "3") {
-        document.getElementById("generateEmailsDiv").style.display = "block";
-        document.getElementById("generateEmailsDiv").required=true;
-    }
-    
-    if ((menuChoice === "1" || menuChoice === "3") && document.getElementById("generateEmails").value==="false" ) {
-        document.getElementById("emailInput").style.display = "block";
-        document.getElementById("emailInput").required = true;
-    }
+    // Get user choice
+    var userChoice = document.getElementById("menuChoice").value;
+    // Reset form to initial state
+    resetForm();
+    // Show sections based on user choice
+    showSections(userChoice);
 }
 
 function checkInput() {
@@ -186,8 +149,56 @@ function checkInput() {
     }
 }
 
+// Function to show sections based on user choice
+function showSections(choice) {
+
+    var menuChoice = document.getElementById("menuChoice").value;
+    document.getElementById("nameInput").style.display = "none";
+    document.getElementById("generateEmailsDiv").style.display = "none";
+    document.getElementById("emailInput").style.display = "none";
+
+    // Show input fields based on user's choice
+    if (menuChoice === "1" || menuChoice === "2" || menuChoice === "3") {
+        document.getElementById("nameInput").style.display = "block";
+    }
+    if (menuChoice === "1" || menuChoice === "3") {
+        document.getElementById("generateEmailsDiv").style.display = "block";
+        document.getElementById("generateEmailsDiv").required = true;
+    }
+
+    if ((menuChoice === "1" || menuChoice === "3") && document.getElementById("generateEmails").value === "false") {
+        document.getElementById("emailInput").style.display = "block";
+        document.getElementById("emailInput").required = true;
+    }
+}
+
+// Function to hide specific sections based on user choice
+function hideSections() {
+    // Hide sections
+    document.getElementById("fetchOptions").style.display = "none";
+
+}
+function resetForm() {
+    try {
+        document.getElementById("numResponsesSlider").value = 10;
+        document.getElementById("numResponses").value = 10;
+    } catch (error) { }
+
+    try {
+        document.getElementById("userName").value = "";
+    } catch (e) { }
+
+    try {
+        document.getElementById("userEmail").value = "";
+    } catch (error) { }
+}
+
+
 function submitForm() {
     // Extracting data from the form
+    if (!checkTimer()) {
+        return;
+    }
     var formLink = document.getElementById("formLinkInput").value;
 
     // Validate if it's a valid Google Forms link
@@ -201,12 +212,12 @@ function submitForm() {
     }
 
     var emails = document.getElementById("userEmail").value;
-    if(emails==''){
-        emails="DEFAULT";
+    if (emails == '') {
+        emails = "DEFAULT";
     }
     var names = document.getElementById("userName").value;
-    if(names==''){
-        names="DEFAULT";
+    if (names == '') {
+        names = "DEFAULT";
     }
     var formData = {
         Request_NO: document.getElementById("menuChoice").value,
@@ -214,7 +225,7 @@ function submitForm() {
         Form: formLink,
         Form_data: {
             emails: emails,
-            names:names,
+            names: names,
         },
     };
 
@@ -225,6 +236,9 @@ function submitForm() {
         return;
     }
 
+    disableFormInputs();
+    //showProgressMessage();
+
     $.ajax({
         type: "POST",
         url: "/processAndFill", // Replace with the actual endpoint for preprocessing and filling
@@ -233,9 +247,13 @@ function submitForm() {
         dataType: "json",
         success: function (response) {
             console.log("ok");
+            resetForm();
+            setTimer();
         },
         error: function (error) {
             console.error("NO");
+            enableFormInputs();
+            //hideProgressMessage();
         }
     });
 }
@@ -260,16 +278,16 @@ function isValidGoogleFormsLink(link) {
 
 function validateForm() {
     // Check if all required fields are filled in
-    if (document.getElementById("numResponses").value==''){
+    if (document.getElementById("numResponses").value == '') {
         alert("Provide number of responses required!");
         return false;
     }
     var menuChoice = document.getElementById("menuChoice").value;
-    if(menuChoice==''){
+    if (menuChoice == '') {
         alert("Select Form Type!");
         return false;
     }
-    if (document.getElementById("generateEmails").value === "" ) {
+    if (document.getElementById("generateEmails").value === "") {
         return false;
     }
 
@@ -281,4 +299,34 @@ function validateForm() {
     }
 
     return true;
+}
+
+function setTimer() {
+    // Set timer on local storage for 5 minutes
+    localStorage.setItem("taskTimer", new Date().getTime() + 50 * 1000); // 5 minutes in milliseconds
+}
+
+function checkTimer() {
+    var taskTimer = localStorage.getItem("taskTimer");
+
+    if (taskTimer) {
+        var currentTime = new Date().getTime();
+        var secondsLeft = Math.max(0, Math.floor((taskTimer - currentTime) / 1000));
+
+        if (currentTime < taskTimer) {
+            alert("A previous task is under progress. Please wait for " + secondsLeft + " seconds to queue another task.");
+            // Optionally disable form inputs and show a message to indicate the waiting period
+            return false;
+        }
+    }
+    return true;
+}
+
+function disableFormInputs() {
+    hideSections();
+}
+
+function enableFormInputs() {
+    var userChoice = document.getElementById("menuChoice").value;
+    showSections(userChoice);
 }
