@@ -152,10 +152,6 @@ function showFormPreview() {
 function updateOptions() {
     // Get user choice
     var userChoice = document.getElementById("menuChoice").value;
-
-    // Reset form to initial state
-    resetForm();
-
     // Show sections based on user choice
     showSections(userChoice);
 }
