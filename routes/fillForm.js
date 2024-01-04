@@ -37,6 +37,35 @@ function main() {
             null;
         }
     }
+
+    const rates = document.querySelectorAll("[role='radiogroup']");
+
+    rates.forEach(rate => {
+        try {
+            const children = rate.children;
+
+            if (children.length === 0) {
+                return;
+            }
+
+            const firstChild = children[0].children;
+
+            if (firstChild.length < 2) {
+                return;
+            }
+
+            const nestedChildren = firstChild[1].children;
+
+            if (nestedChildren.length < 2) {
+                return;
+            }
+
+            const randomSelectedChild = Math.floor(Math.random() * (nestedChildren.length - 3)) + 2;
+            nestedChildren[randomSelectedChild].click();
+        } catch (error) {
+            console.error('Error clicking radio group child:', error);
+        }
+    });
 }
 
 `;
@@ -106,9 +135,16 @@ const main = async (res, form, data, N) => {
                 const EMAIL = EMAILS[i] || `${NAME.replace(/\s/g, '')}${randint(10, 1000)}@${choose(['gmail', 'yahoo', 'outlook'])}${choose(['.com', '.in'])}`;
 
                 if (flag1) {
-                    for (const input of textInputs) {
-                        await input.type(toTitleCase(NAME), { delay: 10 });
-                        await input.press('Enter');
+                    for (let i = 0; i < textInputs.length; i++) {
+                        const input = textInputs[i];
+                        const inputName = i === 0 ? toTitleCase(NAME) : "None";
+
+                        await input.type(inputName, { delay: 10 });
+
+                        // Press 'Enter' only for the first input
+                        if (i === 0) {
+                            await input.press('Enter');
+                        }
                     }
                 }
 
