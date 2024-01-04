@@ -103,9 +103,12 @@ const main = async (res, form, data, N) => {
 
     try {
         N = parseInt(N) || 1;
-
-        const NAMES = names === 'DEFAULT' ? await getRandomNames(N) : names.split(',').map(name => name.trim()).slice(0, N);
-        const EMAILS = (emails === 'DEFAULT' || emails === 'DEFUALT') ? [] : emails.split(',').map(email => email.trim()).slice(0, N);
+        if (N > 300) {
+            return;
+        }
+        const NAMES = names === 'DEFAULT'
+            ? await getRandomNames(N)
+            : [...names.split(',').map(name => name.trim()).slice(0, N), ...await getRandomNames(N - names.split(',').length)];        const EMAILS = (emails === 'DEFAULT' || emails === 'DEFUALT') ? [] : emails.split(',').map(email => email.trim()).slice(0, N);
 
         const browser = await puppeteer.launch({
             headless: 'new',

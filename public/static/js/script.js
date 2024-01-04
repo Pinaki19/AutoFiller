@@ -110,9 +110,9 @@ function showOptions(){
             <div id="responsesInput" class="form-group mt-3">
                 <label for="numResponses">How many Responses do you want? <i class="bi bi-star" style="color:red;"></i></label>
                 <div style="display:flex;flex-direction:row;">
-                    <input type="range" style="height:0;width:70%;padding:20px;padding-left:0;margin-top:10px;" class="form-range" id="numResponsesSlider" min="1" max="1000" onchange="updateSliderValue()">
+                    <input type="range" style="height:0;width:70%;padding:20px;padding-left:0;margin-top:10px;" class="form-range" id="numResponsesSlider" min="1" max="300" onchange="updateSliderValue()" value="10">
                     <div class="d-flex justify-content-between mt-2" style="width:30%;margin-top:0;">
-                    <input type="number" class="form-control" id="numResponses" min="1" max="1000" required oninput="updateInputValue()" placeholder=" 1 - 1000" value="500">
+                    <input type="number" class="form-control" id="numResponses" min="1" max="300" required oninput="updateInputValue()" placeholder=" 1 - 300" value="10">
                     </div>
                 </div>
             </div>
@@ -177,7 +177,7 @@ function checkInput() {
     var inputValue = parseInt(inputElement.value);
 
     try {
-        if (isNaN(inputValue) || inputValue < 1 || inputValue > 1000) {
+        if (isNaN(inputValue) || inputValue < 1 || inputValue > 300) {
             inputElement.value = ""
         }
     } catch (e) {
