@@ -167,7 +167,7 @@ const main = async (res, form, data, N) => {
                 await new Promise(resolve => setTimeout(resolve,300));
                 
             } catch (error) {
-                console.error('Error filling form:', error);
+                console.error('Error filling form:',i);
                 i--;
             }
         }

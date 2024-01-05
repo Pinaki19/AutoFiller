@@ -16,7 +16,9 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="./static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +30,6 @@
 
   <link href="./static/assets/css/main.css" rel="stylesheet">
   <link href="./../stylesheets/progress.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -40,7 +41,7 @@
       <a href="/" class="logo d-flex align-items-center" style="width:150%;">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="static/assets/Forms.svg" alt="Logo icon">
-        <h1 >Auto Filler</h1>
+        <h1>Auto Filler</h1>
       </a>
 
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -49,7 +50,7 @@
         <ul>
           <li><a href="/" class="active">Home</a></li>
           <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="#" onclick="smoothScroll('Contact')">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
 
@@ -62,42 +63,47 @@
     <div class="container">
       <div class="row gy-4 d-flex justify-content-between">
         <div class="col-lg-7 order-2 order-lg-1 d-flex flex-column justify-content-center" style="padding-bottom:3em;">
-          <h2 data-aos="fade-up">Fill Forms Lightning Fast<i class="bi bi-lightning" style="color:red"></i><i class="bi bi-lightning" style="color:red"></i></h2>
-          
-          <form id="fetchForm" onsubmit="fetchForm()" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
-            data-aos-delay="200">
+          <h2 data-aos="fade-up">Fill Forms Lightning Fast<i class="bi bi-lightning" style="color:red"></i><i
+              class="bi bi-lightning" style="color:red"></i></h2>
+
+          <form id="fetchForm" onsubmit="fetchForm()" class="form-search d-flex align-items-stretch mb-3"
+            data-aos="fade-up" data-aos-delay="200">
             <input type="text" id="formLinkInput" class="form-control" placeholder="G-Forms Link">
             <button type="submit" class="btn btn-primary">Fetch</button>
           </form>
           <!-- New div to hold options -->
           <div id="fetchOptions" style="padding-bottom:25px; display:flex; flex-direction:column;"></div>
 
-          <div class="row gy-4" data-aos="fade-up"  data-aos-delay="400">
+          <div class="row gy-4" data-aos="fade-up" data-aos-delay="400">
 
             <div class="col-lg-3 col-6">
               <div class="stats-item text-center w-100 h-100">
-                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+                  class="purecounter"></span>
                 <p>Forms Filled</p>
               </div>
             </div><!-- End Stats Item -->
 
             <div class="col-lg-3 col-6">
               <div class="stats-item text-center w-100 h-100">
-                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                  class="purecounter"></span>
                 <p>Questions Answered</p>
               </div>
             </div><!-- End Stats Item -->
 
             <div class="col-lg-3 col-6">
               <div class="stats-item text-center w-100 h-100">
-                <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
+                  class="purecounter"></span>
                 <p>Total visits</p>
               </div>
             </div><!-- End Stats Item -->
 
             <div class="col-lg-3 col-6">
               <div class="stats-item text-center w-100 h-100">
-                <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                  class="purecounter"></span>
                 <p>Time saved (Mins)</p>
               </div>
             </div><!-- End Stats Item -->
@@ -118,12 +124,13 @@
       </div>
 
     </div>
+
   </section><!-- End Hero Section -->
 
   <main id="main">
 
     <!-- FORM TO BE LOADED HERE WHEN USER CLICKS ON FETCH -->
-      <div id="formPreview"></div>
+    <div id="formPreview"></div>
 
 
     <!--END FORM-->
@@ -144,19 +151,129 @@
 
               <div class="accordion-item">
                 <h3 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-1">
                     <i class="bi bi-question-circle question-icon"></i>
-                    Non consectetur a erat nam at lectus urna duis?
+                    Can I use any form-filling service to automatically submit responses to Forms?
                   </button>
                 </h3>
                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                    No, you can currently only use Google forms with this service.
                   </div>
                 </div>
-              </div><!-- # Faq item-->
+              </div>
 
-              
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-2">
+                    <i class="bi bi-question-circle question-icon"></i>
+                    Can any Google form be filled by this?
+                  </button>
+                </h3>
+                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    No,the form must allow more than one response from one user and the form must not require sign-in to
+                    submit a response.
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-3">
+                    <i class="bi bi-question-circle question-icon"></i>
+                    What fields are allowed in the Google Form?
+                  </button>
+                </h3>
+                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    Ideally, the form should only have Email and Name fields along with Questions(See below). If either
+                    or both are missing, it's acceptable.
+                    The Email field should be of type="email" and not a text question; otherwise, the response will be
+                    marked as "None". If the form has more text fields (Other than a Name field), all of them will be
+                    filled with the text "None."
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-4">
+                    <i class="bi bi-question-circle question-icon"></i>
+                    What types of questions are supported in the form?
+                  </button>
+                </h3>
+                <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    The form should only contain Multiple-choice, Check-box, or Rate something in Linear scale
+                    questions. Other types of
+                    questions are not currently supported.
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-5">
+                    <i class="bi bi-question-circle question-icon"></i>
+                    What if the form has an Email or Name field, and I want to provide them?
+                  </button>
+                </h3>
+                <div id="faq-content-5" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    You can provide names or emails ( provide both , either or None!) for the form. If not, it will be
+                    auto-generated.
+                    If you provide Names and Emails, Name 1 will be used with Email 1, if you provide Name but not Email
+                    , The name will be used to generate Email.
+                    If you provide None, both will be generated randomly.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-6">
+                    <i class="bi bi-question-circle question-icon"></i>
+                    Can I provide fewer names and emails than the number of responses required?
+                  </button>
+                </h3>
+                <div id="faq-content-6" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    YES! You can provide fewer names and emails.Required rest will be auto-generated.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-7">
+                    <i class="bi bi-question-circle question-icon"></i>
+                    Is it Legal to automate form filling this way?
+                  </button>
+                </h3>
+                <div id="faq-content-7" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    It's important to note that automating the filling of Google Forms programmatically might violate
+                    Google's terms of
+                    service, and such activities could result in the suspension of your account or other consequences.
+                    Google Forms are
+                    designed for manual input by users, and automating responses goes against their intended use.
+                    This is for your personal use and do not abuse it to spam some other forms.
+                    This is made in Good faith as a proof of concept.
+                  </div>
+                </div>
+              </div>
+
+
             </div>
 
           </div>
@@ -176,7 +293,8 @@
           <a href="index.html" class="logo d-flex align-items-center">
             <span>AUTO FILLER</span>
           </a>
-          <p>This aims to automate form filling.<br> <strong>DO NOT ABUSE.</strong><br>This is made as a proof of concept.</p>
+          <p>This aims to automate form filling.<br> <strong>DO NOT ABUSE.</strong><br>This is made as a proof of
+            concept.</p>
           <div class="social-links d-flex mt-4">
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -184,11 +302,11 @@
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
-        <div class="col-lg-3 col-lg-15 footer-contact text-center text-md-start">
+        <div id="Contact" class="col-lg-3 col-lg-15 footer-contact text-center text-md-start">
           <h4>Contact Us</h4>
           <p>
             PINAKI BANERJEE <br>
-            <strong>Email:</strong> pinakibanerjee2001@gmail.com<br>
+            <strong>Email at:</strong> pinakibanerjee2001@gmail.com<br>
           </p>
 
         </div>
@@ -201,7 +319,7 @@
         &copy; Copyright <strong><span>Auto Filler</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-       
+
         Designed by Pinaki Banerjee
       </div>
     </div>
@@ -209,7 +327,8 @@
   </footer><!-- End Footer -->
   <!-- End Footer -->
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
 

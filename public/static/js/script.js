@@ -419,3 +419,15 @@ function simulateProgress(n) {
     }
 }
 
+
+function smoothScroll(targetId) {
+    var targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+        // Scroll to the target element smoothly
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+
+
