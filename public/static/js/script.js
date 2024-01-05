@@ -327,15 +327,16 @@ function validateForm() {
         alert("Select Form Type!");
         return false;
     }
-    if (document.getElementById("generateEmails").value === "") {
-        return false;
-    }
+    
 
     if (menuChoice === "1" || menuChoice === "3") {
         if (document.getElementById("generateEmails").value === "false" &&
             document.getElementById("userEmail").value.trim() === "") {
             return false;
         }
+    }
+    if (document.getElementById("generateEmails").value === "") {
+        return false;
     }
 
     return true;
