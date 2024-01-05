@@ -280,8 +280,9 @@ function submitForm() {
             }, 5000);
             setTimeout(() => {
                 alert("Task queued successfully! You will see a progressbar below. You CAN CLOSE OUT of this site. ETR: " + (parseInt(document.getElementById("numResponses").value, 10) / 4) * 15 + " seconds.");
+                resetForm();
             }, 1000);
-            resetForm();
+            
         },
         error: function (error) {
             enableFormInputs();
