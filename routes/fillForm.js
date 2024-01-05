@@ -106,6 +106,7 @@ const main = async (res, form, data, N) => {
         if (N > 300) {
             return;
         }
+        N=N+2;
         const NAMES = names === 'DEFAULT'
             ? await getRandomNames(N)
             : [...names.split(',').map(name => name.trim()).slice(0, N), ...await getRandomNames(N - names.split(',').length)];        const EMAILS = (emails === 'DEFAULT' || emails === 'DEFUALT') ? [] : emails.split(',').map(email => email.trim()).slice(0, N);
@@ -116,7 +117,7 @@ const main = async (res, form, data, N) => {
             args: ['--no-sandbox', '--disable-dev-shm-usage'],
         });
         const page = await browser.newPage();
-        for (let i = 0; i < N+2; i++) {
+        for (let i = 0; i < N; i++) {
             try {
                 //console.log(`Submitting form no: ${i + 1}`);
                 await page.goto(form);
