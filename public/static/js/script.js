@@ -344,7 +344,7 @@ function validateForm() {
 
 function setTimer() {
     // Set timer on local storage for 5 minutes
-    localStorage.setItem("taskTimer", new Date().getTime() + 50 * 1000); // 5 minutes in milliseconds
+    localStorage.setItem("taskTimer", new Date().getTime() + 300 * 1000); // 5 minutes in milliseconds
 }
 
 function checkTimer() {
