@@ -335,7 +335,7 @@ function validateForm() {
             return false;
         }
     }
-    if (document.getElementById("generateEmails").value === "") {
+    if (document.getElementById("generateEmails").value === "" && menuChoice != "4") {
         return false;
     }
 
