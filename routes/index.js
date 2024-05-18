@@ -8,7 +8,7 @@ const { incrementVisitCount } = require('./increamentCounts');
 const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
 const uri = process.env.DATABASE_URL;
 
-console.log(uri);
+
 
 const client = new MongoClient(uri, {
   serverApi: {
