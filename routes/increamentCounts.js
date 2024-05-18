@@ -1,5 +1,5 @@
 const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
-const uri = "Redacted"; // url has been redacted
+const uri = process.env.DATABASE_URL;
 
 const client = new MongoClient(uri, {
     serverApi: {
