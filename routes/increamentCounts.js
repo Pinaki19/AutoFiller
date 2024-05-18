@@ -1,5 +1,5 @@
 const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Pinaki_Toll_system:Pinaki_toll_6070@cluster0.wsag3nu.mongodb.net/?retryWrites=true&w=majority";
+const uri = "Redacted"; // url has been redacted
 
 const client = new MongoClient(uri, {
     serverApi: {
