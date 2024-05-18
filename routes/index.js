@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 const ejs = require('ejs');
 const { incrementVisitCount } = require('./increamentCounts');
 const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Pinaki_Toll_system:Pinaki_toll_6070@cluster0.wsag3nu.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.DATABASE_URL;
 
 const client = new MongoClient(uri, {
   serverApi: {
