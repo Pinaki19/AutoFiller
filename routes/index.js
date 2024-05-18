@@ -1,4 +1,5 @@
 var express = require('express');
+require('dotenv').config(); 
 var router = express.Router();
 const path = require('path');
 const fs = require('fs').promises;
@@ -6,6 +7,8 @@ const ejs = require('ejs');
 const { incrementVisitCount } = require('./increamentCounts');
 const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
 const uri = process.env.DATABASE_URL;
+
+console.log(uri);
 
 const client = new MongoClient(uri, {
   serverApi: {
