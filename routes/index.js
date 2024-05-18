@@ -1,5 +1,5 @@
 var express = require('express');
-require('dotenv').config(); 
+
 var router = express.Router();
 const path = require('path');
 const fs = require('fs').promises;
